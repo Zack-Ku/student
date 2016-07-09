@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh" ng-app="myApp">
+    <head>
+        <title>学生 - 在线课堂</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <script src="//cdn.bootcss.com/angular.js/1.2.5/angular.js"></script>
+        <script src="//cdn.bootcss.com/jquery/2.0.3/jquery.js"></script>
+        <link type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet" />
+        <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+        <script src="js/Controller.js"></script>
+        <link type="text/css" rel="stylesheet" href="//cdn.bootcss.com/bootstrap-fileinput/4.3.1/css/fileinput.css" />
+        <script type="text/javascript" src="//cdn.bootcss.com/bootstrap-fileinput/4.3.1/js/fileinput.js"></script>
+        <script type="text/javascript" src="//cdn.bootcss.com/bootstrap-fileinput/4.3.1/js/fileinput_locale_zh.js"></script>
+    </head>
+
+        <div ng-include="'navbar.html'"></div>
+        <div class="container" style="margin-top:50px" ng-controller="studentInfoCtrl">
+            <!-- 头像Banner -->
+            <div class="row" style="background:url(images/bgStu.jpg)">
+                <div class="col-md-2 text-left">
+                    <img class="img-circle pull-left" src="images/avatarStu.jpg" alt="140*140" style="margin:15px">
+                  <a href="#" data-toggle="modal" data-target="#uploadModal"><p class="text-center" style="color:white;">编辑头像</p>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <h2 style="font-family:KaiTi;color:#FF7F50;valign:bottom"><b> {{student.stu_name}} </b></h2>
+                    <h3 style="font-family:KaiTi;color:#DC143C">{{student.stu_school}}</h3>
+                    <h3 style="font-family:KaiTi;color:#DC143C">{{student.stu_xl}} {{student.stu_num}}</h3>
+                </div>
+                <div class="col-md-offset-9 col-md-3">
+                    <h4 class="pull-right" style="font-famil:YouYuan;color:#00FF00">已学时长：{{courseTotalTime}}课时</h4>
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px">
+                <div >
+                    <ul class="nav nav-tabs nav-stacked col-md-1 text-center" role="tablist">
+                        <li role="presentation"><a href="#course" aria-controls="course" role="tab" data-toggle="tab" style="border:1px outset #00FF7F">课程</a></li>
+                        <li role="presentation"><a href="#QA" aria-controls="QA" role="tab" data-toggle="tab">问答</a></li>
+                        <li role="presentation"><a href="#article" aria-controls="article" role="tab" data-toggle="tab">文章</a></li>
+                    </ul>
+                    <div class="tab-content col-md-10">
+                        <!-- 课程 -->
+                        <div role="tabpanel" class="tab-pane active" id="course">
+                            <!--<p>课程</p>-->
+                            <div class="well" ng-repeat="x in courses">
+                                <div class="media">
+                                    <div  class="media-left media-middle">
+                                        <a href="course.html#?course_id={{x.id}}">
+                                            <img class="media-object" src="images/glxlx.jpg" alt="200x150" style="border:1px">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h3 class="media-heading"><b>{{x.course_cname}}</b></h3>
+                                        <div class="row media-right" style="margin-top:15px;padding:10px">
+                                            <div class="col-md-12">
+                                                <table class="table" style="display:table;width:auto;height:auto;border:1px solid;margin:0 auto">
+                                                    <tr>
+                                                        <td style="width:100px">讲师：</td>
+                                                        <td style="width:200px">{{x.tch_name}}</td>
+                                                        <td rowspan="2" style="width:100px" class="text-center">课程描述：</td>
+                                                        <td rowspan="2" style="word-break:break-all"><p>{{x.course_desc}}</p></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>已学学时：</td>
+                                                        <td>{{x.course_duration}}</td>
+                                                    </tr>
+                                                        <td>章节数：</td>
+                                                        <td>{{x.course_chapterno}}章</td>
+                                                        <td colspan="2"><a href="course.html#?course_id={{x.id}}"><button class="btn btn-success pull-right">前往学习</button></a></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 问答 -->
+                        <div role="tabpanel" class="tab-pane" id="QA">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="well" ng-repeat="x in qa">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <h4><small>来自：</small><a href="chapter.html#?chapter=效率最大化">{{x.course_name}} —— {{x.chapter_name}}</a></h4>
+                                                <blockquote>{{x.qanswer_content}}</blockquote>
+                                                <p>引用：{{x.qanswer_origin}}</p>
+                                            </div>
+                                            <div class="col-md-4 text-right">
+                                                <p>发表时间：<cite>{{x.qanswer_time}}</cite></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <ul class="pager">
+                                    <li><a href="#">&larr;Previous</a></li>
+                                    <li><a href="#">Next&rarr;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 文章 -->
+                        <div role="tabpanel" class="tab-pane" id="article">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="well" ng-repeat="x in article">
+                                <div class="row">
+                                  <div class="col-md-8">
+                                    <h4><small>标题：</small><a href="article.html#?chapter={{x.id}}">{{x.article_title}}</a></h4>
+                                    <blockquote>{{x.article_content}}</blockquote>
+                                  </div>
+                                  <div class="col-md-4 text-right">
+                                    <p>发表时间：<cite>{{x.article_time}}</cite></p>
+                                    <p>标记：<cite>{{x.article_rem}}</cite></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <!--上传学生头像页面-->
+          <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="uploadModalLabel">上传头像</h4>
+                </div>
+                <div class="modal-body">
+                  <div>
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <label for="InputYourFile" class="col-md-2 col-sm-2 control-label">头像上传</label>
+                        <div class="col-md-9 col-sm-9">
+                          <input type="file" class="file" id="InputYourFile" ng-model="studentPicture">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                  <button type="submit" class="btn btn-primary" ng-click="upload()">上传</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end上传课程文件页面-->
+        </div>
+    </body>
+</html>

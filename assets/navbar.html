@@ -1,0 +1,239 @@
+<div ng-app="myApp"  ng-controller="navbarCtrl">
+    <!-- Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" >
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" style="padding-top:5px"><img src="images/logo.png"></a>
+                <p class="navbar-text">在线课堂</p>
+            </div>
+
+            <!-- Collect the nav links,forms, and other content for toggling -->
+            <div class="clooapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="courseIndex.html">课程</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">广场<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#blogs">文章区</a></li>
+                            <li><a href="#bbs">讨论区</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" ng-hide="isLogin">
+                    <li><a href="#" data-toggle="modal" data-target="#registerModal" onclick="form1.style.display='';form2.style.display='none';">注册</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#loginModal">登陆</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" ng-show="isLogin" >
+                    <li><a href="teacher.html"><span class="glyphicon glyphicon-envelope" style="top:3px"></span>&nbsp;&nbsp;信箱</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"  aria-expanded="false" ng-model="user">您好，{{user.name}}</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{user.type}}.html#?user_id={{user.id}}" class="text-center">主页</a></li>
+                            <li><a href="index.html" class="text-center" ng-click="logout()">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="loginModalLabel">登陆页面</h4>
+                    </div>
+                <div class="modal-body">
+                    <div>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="InputYourAccount" class="col-md-2 col-sm-2 control-label">账号</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input type="text" class="form-control" id="InputYourAccount" placeholder="学生为学号，教师为职工号" ng-model="account">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputYourPassword" class="col-md-2 col-sm-2 control-label">密码</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input type="password" class="form-control" id="InputYourPassword" ng-model="password">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" ng-click="login()">登陆</button>
+                </div>
+                </div>
+            </div>
+        </div>
+  <!--注册页面-->
+  <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="loginModalLabel">注册页面</h4>
+        </div>
+        <div class="modal-body">
+          <div>
+            <!--学生注册表单-->
+            <form class="form-horizontal" id="form1">
+              <div class="form-group">
+                <label for="stu_num" class="col-md-2 col-sm-2 control-label">学号</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" ng-model="stu_num" id="stu_num" placeholder="学生学号">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="stu_password" class="col-md-2 col-sm-2 control-label">密码</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="password" class="form-control" ng-model="stu_password" id="stu_password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="stu_name" class="col-md-2 col-sm-2 control-label">姓名</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" ng-model="stu_name" id="stu_name" placeholder="杨景添">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label">性别</label>
+                <input checked="checked" type="radio"  ng-model="stu_gender"  value="男" checked>男
+                <input type="radio"  ng-model="stu_gender"  value="女">女
+              </div>
+              <div class="form-group">
+                <label for="stu_school" class="col-md-2 col-sm-2 control-label">学院</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" ng-model="stu_school" id="stu_school" placeholder="计算机学院">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="stu_grade" class="col-md-2 col-sm-2 control-label">年级</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" ng-model="stu_grade" id="stu_grade" placeholder="大二">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="stu_birthday" class="col-md-2 col-sm-2 control-label">生日</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" ng-model="stu_birthday" id="stu_birthday" placeholder="1994/2/8">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="stu_teleno" class="col-md-2 col-sm-2 control-label">联系电话</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" ng-model="stu_teleno" id="stu_teleno" placeholder="15625049340">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="stu_address" class="col-md-2 col-sm-2 control-label">联系地址</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" ng-model="stu_address" id="stu_address" placeholder="广州市天河区中山大道西55号">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="stu_avatar" class="col-md-2 col-sm-2 control-label">头像上传</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="file" class="file" id="stu_avatar" ng-model="courseFile">
+                </div>
+              </div>
+            </form>
+            <!--教师注册表单-->
+            <form class="form-horizontal" id="form2" display='none'>
+              <div class="form-group">
+                <label for="tch_num" class="col-md-2 col-sm-2 control-label">教工号</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" id="tch_num" placeholder="教师职工号" ng-model="tch_num">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tch_password" class="col-md-2 col-sm-2 control-label">密码</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="password" class="form-control" id="tch_password" ng-model="tch_password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tch_name" class="col-md-2 col-sm-2 control-label">姓名</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" id="tch_name" placeholder="杨康明" ng-model="tch_name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label">性别</label>
+                <input checked="checked" type="radio"  ng-model="tch_gender"  value="男" checked>男
+                <input type="radio"  ng-model="tch_gender"  value="女">女
+              </div>
+              <div class="form-group">
+                <label for="tch_school" class="col-md-2 col-sm-2 control-label">学院</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" id="tch_school" placeholder="马克思学院" ng-model="tch_school">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tch_zc" class="col-md-2 col-sm-2 control-label">职称</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" id="tch_zc" placeholder="副教授" ng-model="tch_zc">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tch_birthday" class="col-md-2 col-sm-2 control-label">生日</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" id="tch_birthday" placeholder="1985/8/2" ng-model="tch_birthday">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tch_teleno" class="col-md-2 col-sm-2 control-label">联系电话</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" id="tch_teleno" placeholder="135345678998" ng-model="tch_teleno">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tch_address" class="col-md-2 col-sm-2 control-label">联系地址</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" id="tch_address" placeholder="广州市海珠区南山路25号" ng-model="tch_address">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tch_desc" class="col-md-2 col-sm-2 control-label">个人描述</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" id="tch_desc" placeholder="苟利国家生死以，起因祸福避趋之" ng-model="tch_desc">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tch_focus" class="col-md-2 col-sm-2 control-label">专注领域</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="text" class="form-control" id="tch_focus" placeholder="师范技能，线性代数" ng-model="tch_focus">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tch_avatar" class="col-md-2 col-sm-2 control-label">头像上传</label>
+                <div class="col-md-9 col-sm-9">
+                  <input type="file" class="file" id="tch_avatar" ng-model="tch_avatar">
+                </div>
+              </div>
+            </form>
+            <!--end-->
+            <div  class="text-center">
+              <input checked="checked" ng-model="sel" value="student" type=radio onclick="form1.style.display='';form2.style.display='none';" >学生
+              <input  value="teacher" type=radio onclick="form1.style.display='none';form2.style.display='';">教师
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="submit" class="btn btn-primary" ng-click="register()">注册</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>

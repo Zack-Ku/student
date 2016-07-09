@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <title>管理心理学 课程 - 在线课堂</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <script src="//cdn.bootcss.com/angular.js/1.2.5/angular.js"></script>
+        <script src="//cdn.bootcss.com/jquery/2.0.3/jquery.js"></script>
+        <link type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet" />
+        <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+        <script src="js/Controller.js"></script>
+        <script src="js/Directive.js"></script>
+    </head>
+    <body ng-app="myApp">
+        <div ng-include="'navbar.html'"></div>
+        <!-- 章节内容展示 -->
+        <div ng-if=1 style="margin-top:50px;width:100%;background-color=#FFF">
+            <div style="display:table;margin:0px;width:100%;text-align:center;background-color:#000">
+                <video src="images/opp.mp4" controls="controls" ></video>
+                <!-- <embed src="http://player.youku.com/player.php/sid/XMzI2NTc4NTMy/v.swf" width="640px" height="480px" type="application/x-shockwave-flash">
+                </embed>-->
+            </div>
+        </div>
+        <div class="container">
+            <!-- 章节信息 -->
+            <div class="row" ng-controller="GetCtrl">
+                <hello></hello>
+            </div>
+            <div class="row">
+                <!-- 作业评论区 -->
+                <div class="col-md-10">
+                    <!-- 标签头 -->
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#homework" aria-controls="homework" role="tab" data-toggle="tab">作业</a></li>
+                            <li role="presentation"><a href="#QA" aria-controls="QA" role="tab" data-toggle="tab">评论区</a></li>
+                        </ul>
+                    </div>
+                    <!-- 标签内容 -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="homework">
+                          <div class="col-md-8 col-md-sm-6 col-xs-6">
+                            <div class="thumbnail" style="margin-top:5px">
+                              <div><input type=""></div>
+                             <div><textarea class="comments" rows="10" cols="10"> </textarea></div>
+                              <div class="caption">
+                                <p class="text-left"><a href="courseUpdate.html" class="btn btn-primary" role="button">保存</a> <a href="#" class="btn btn-success" role="button">提交</a></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="QA"></div>
+                    </div>
+                </div>
+                <!-- 资源下载区 -->
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </body>
+</html>

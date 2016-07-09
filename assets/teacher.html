@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh" ng-app="myApp">
+    <head>
+        <title>教师 - 在线课堂</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <script src="//cdn.bootcss.com/angular.js/1.2.5/angular.js"></script>
+        <script src="//cdn.bootcss.com/jquery/2.0.3/jquery.js"></script>
+        <link type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet" />
+        <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+        <script src="js/Controller.js"></script>
+    </head>
+    <body>
+        <div ng-include="'navbar.html'"></div>
+        <!-- Container -->
+        <div class="container" style="margin-top:50px" ng-controller="teacherInfoCtrl">
+            <!-- 头像Banner -->
+            <div class="row" style="background:url(images/bg.jpg)">
+                <div class="col-md-2 text-left">
+                    <img class="img-circle pull-left" src="images/avator.jpg" alt="140*140" style="margin:15px">
+                </div>
+                <div class="col-md-4" ng-model="teacher">
+                    <h2 style="font-family:KaiTi;color:#FF7F50;valign:bottom"><b>{{teacher.tch_name}}</b></h2>
+                    <h3 style="font-family:KaiTi;color:#DC143C">{{teacher.tch_school}}  {{teacher.tch_zc}}</h3>
+                </div>
+            </div>
+            <!-- 标签页 -->
+            <div class="row" style="margin-top:10px">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#courses" aria-controls="courses" role="tab" data-toggle="tab">课程</a></li>
+                    <li role="presentation"><a href="#information" aria-controls="information" role="tab" data-toggle="tab">个人信息</a></li>
+                </ul>
+                <div class="tab-content">
+                    <!-- 课程标签 -->
+                    <div role="tabpanel" class="tab-pane active" id="courses" ng-model="courses">
+                        <!-- 课程 -->
+                        <div class="col-md-3 col-md-sm-6 col-xs-6" ng-repeat="x in courses">
+                            <div class="thumbnail" style="margin-top:5px">
+                              <img src="images/zhsx.jpg" class="img-rounded" alt="200x135">
+                              <div class="caption">
+                                <h3>{{ x.course_cname }}</h3>
+                                <p class="text-left">
+                                    <i class="glyphicon glyphicon-user" aria-hidden="true" style="margin-right:5px"></i><span>已学人数：<b>{{ x.course_pcount }}</b>人</span>
+                                    <br>
+                                    <i class="glyphicon glyphicon-list" aria-hidden="true" style="margin-right:5px"></i><span>目前章节数：<b>{{ x.course_chapterno }}</b>节</span>
+                                    <br>
+                                    <i class="glyphicon glyphicon-time" aria-hidden="true" style="margin-right:5px"></i><span>总共学时：<b>{{ x.course_duration }}</b></span>
+                                </p>
+                                <p><a href="courseUpdate.html#?course_id={{x.id}}" class="btn btn-primary" role="button">修改课程</a> <a href="#" class="btn btn-danger" role="button">删除课程</a></p>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-md-sm-6 col-xs-6">
+                            <div class="thumbnail" style="margin-top:5px">
+                              <img src="images/add.jpg" class="img-rounded" alt="200x135">
+                              <div class="caption">
+                                <h3>添加课程</h3>
+                                <p class="text-center">
+                                    <br>
+                                    <span>点击进入添加课程</span>
+                                    <br>
+                                    <br>
+                                </p>
+                                <p><a href="courseUpdate.html" class="btn btn-success" role="button" style="width:100%">添加</a></p>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 个人信息标签 -->
+                    <div role="tabpanel" class="tab-pane" id="information">
+                        <div class="row" style="margin-top:15px">
+                            <div class="col-md-9">
+                                <form class="form-horizontal">
+                                    <!-- 姓名 -->
+                                    <div class="form-group">
+                                        <label for="inputName" class="control-label col-sm-2 text-muted">用户名</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputName" placeholder="{{teacher.tch_name}}"/>
+                                        </div>
+                                    </div>
+                                    <!-- 学院 -->
+                                    <div class="form-group">
+                                        <label for="inputAcademy" class="control-label col-sm-2 text-muted">学院</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputAcademy" placeholder="{{teacher.tch_school}}"/>
+                                        </div>
+                                    </div>
+                                    <!-- 邮箱 -->
+                                    <div class="form-group">
+                                        <label for="inputTelephone" class="control-label col-sm-2 text-muted">电话</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputEmail" placeholder="{{teacher.tch_teleno}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputSummary" class="control-label col-sm-2 text-muted">个人简介</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control col-sm-2" id="inputSummary" rows="3" style="resize:none" placeholder="请输入您的个人简介"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" class="btn btn-primary">提交修改</button>
+                                            <button type="submit" class="btn btn-success">修改密码</button>
+                                            <button type="reset" class="btn btn-danger">重置</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-3">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
