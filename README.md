@@ -18,4 +18,5 @@
 - HTML、CSS、JavsScript
 - AngularJS
 - NodeJS
+- Sails框架
 - MongoDB
