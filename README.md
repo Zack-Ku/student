@@ -20,3 +20,7 @@
 - NodeJS
 - Sails框架
 - MongoDB
+项目截图：
+![](http://pdv3jjh7x.bkt.clouddn.com/class-1.png)
+![](http://pdv3jjh7x.bkt.clouddn.com/class-2.png)
+![](http://pdv3jjh7x.bkt.clouddn.com/class-3.png)
